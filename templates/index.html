@@ -3,22 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>letter extraction app</title> 
+    <title>Letter Extraction App</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add your custom styles link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 </head>
 <body>
-    <h1>Letter extraction app</h1>
-    {% if error %}
-        <p style="color: red">{{ error }}</p>
-    {% endif %}
-    <form action="/extract" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".png, .jpg, .jpeg" required>
-        <button type="submit">extract Letters</button>
-    </form>
-    {% if text %}
-        <h2>extracted text:</h2>
-        <p>{{ text }}</p>
-    {% endif %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8"> <!-- Adjust the column size to your preference -->
+                <div class="card custom-card"> <!-- Add the 'custom-card' class here -->
+                    <div class="card-body">
+                        <h1 class="card-title text-center">LetExt</h1>
+                        <hr class="my-4">
+                        <h4 class="text-center">I'm here to help you extracting text.</h4>
+                        <hr class="my-4">
+                        {% if error %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                        <form action="/extract" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="fileInput">Upload Image:</label>
+                                <input type="file" class="form-control-file" name="file" id="fileInput" accept=".png, .jpg, .jpeg" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Extract Letters</button>
+                            </div>
+                        </form>
+                       <!-- Update this in your index.html file -->
+                        {% if text %}
+                            <div class="mt-4">
+                                <h2>Your Extracted Text:</h2>
+                                <p id="extractedText">{{ text }}</p>
+                                <button class="btn btn-secondary" data-clipboard-target="#extractedText">Copy to Clipboard</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Bootstrap JS and Popper.js script links here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add this to your index.html file -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var clipboard = new ClipboardJS('.btn-secondary');
+
+            clipboard.on('success', function (e) {
+                alert('Text copied to clipboard!');
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function (e) {
+                alert('Copy to clipboard failed. Please try selecting and copying manually.');
+            });
+        });
+    </script>
 </body>
 </html>
-
-<!--later we'll make this beautiful-->
