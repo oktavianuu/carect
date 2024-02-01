@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>letter extraction app</title> 
+</head>
+<body>
+    <h1>Letter extraction app</h1>
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+    <form action="/extract" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".png, .jpg, .jpeg" required>
+        <button type="submit">extract Letters</button>
+    </form>
+    {% if text %}
+        <h2>extracted text:</h2>
+        <p>{{ text }}</p>
+    {% endif %}
+</body>
+</html>
