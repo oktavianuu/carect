@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from PIL import Image, ImageEnhance, ImageOps
+from PIL import Image, ImageEnhance, ImageOps, ImageStat
 import pytesseract
 
 app = Flask(__name__)
@@ -25,14 +25,21 @@ def extract():
     
     # read image and perform preprocessing
     image = Image.open(file)
+    is_white_background = is_white(image)
     image = preprocess_image(image) # image enhancement and conversion
     image = enhance_image(image) # Apply image enhancement
-    image = invert_colors(image) # invert colors if necessary
+    if not is_white_background:
+        image = invert_colors(image) # invert colors if necessary
 
     # perform extraction
     text = pytesseract.image_to_string(image)
 
     return render_template('index.html', text=text)
+
+def is_white(image):
+    # check if the background color is white:
+    average_color = ImageStat.Stat(image).mean[:3]
+    return sum(average_color) / 3 > 200
 
 def preprocess_image(image):
     # convert RGB if image is RGBA
