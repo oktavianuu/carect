@@ -17,8 +17,7 @@
                 <div class="card custom-card"> <!-- Add the 'custom-card' class here -->
                     <div class="card-body">
                         <h1 class="card-title text-center">LetExt</h1>
-                        <hr class="my-4">
-                        <h4 class="text-center">I'm here to help you extracting text.</h4>
+                        <h4 class="text-center">I extract text for you.</h4>
                         <hr class="my-4">
                         {% if error %}
                             <div class="alert alert-danger" role="alert">
@@ -37,7 +36,8 @@
                        <!-- Update this in your index.html file -->
                         {% if text %}
                             <div class="mt-4">
-                                <h2>Your Extracted Text:</h2>
+                                <h4>Extracted Text:</h4>
+                                <hr class="my-4">
                                 <p id="extractedText">{{ text }}</p>
                                 <button class="btn btn-secondary" data-clipboard-target="#extractedText">Copy to Clipboard</button>
                             </div>

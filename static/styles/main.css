@@ -1,10 +1,10 @@
 /* Update this in your main.css file */
 body {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
 }
 
 .custom-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(230, 223, 223, 0.1);
     width: 90%; /* Adjust the width to your preference */
     max-width: 600px; /* Set a maximum width to avoid excessive stretching on larger screens */
     margin: auto;
